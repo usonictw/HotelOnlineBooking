@@ -6,6 +6,7 @@ import com.goit.hotelonlinebooking.entity.Hotel;
 import com.goit.hotelonlinebooking.entity.Room;
 import com.goit.hotelonlinebooking.entity.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,9 +20,10 @@ public class Controller {
     private CurrentUser currentUser = new CurrentUser();
     private boolean flagLogin;
 
-    public void userRegistration(User user) {
+    public void userRegistration(User user) throws IOException {
         if (this.userDAO.checkRegistration(user)) {
             this.userDAO.save(user);
+            this.userDAO.saveUserToFile(userDAO.getList());
             System.out.println("User " + user.getName() + " " + user.getLastName() + " successfully registered");
         }
     }

@@ -2,6 +2,8 @@ package com.goit.hotelonlinebooking.dao;
 
 import com.goit.hotelonlinebooking.entity.User;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +35,33 @@ public class UserDAO extends AbstractDAO<User> {
             }
         }
         return flag;
+    }
+
+    public void saveUserToFile(List<User> users) throws IOException{
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("user.dat"))){
+
+            oos.writeObject(users);
+        }
+        catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
+
+    }
+
+    public List<User> readUserFromFile() throws Exception{
+
+        ArrayList<User> newListUsers = null;
+        ObjectInputStream ois;
+        try {
+            ois = new ObjectInputStream(new FileInputStream("user.dat"));
+            newListUsers = (ArrayList<User>)ois.readObject();
+        }
+        catch (Exception ex){
+            ex.getMessage();
+        }
+
+        return newListUsers;
     }
 
     public List<User> findUserByName(String name) {

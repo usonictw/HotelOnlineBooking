@@ -1,22 +1,31 @@
 package com.goit.hotelonlinebooking.testing;
 
 import com.goit.hotelonlinebooking.controller.Controller;
+import com.goit.hotelonlinebooking.dao.UserDAO;
 import com.goit.hotelonlinebooking.entity.Hotel;
 import com.goit.hotelonlinebooking.entity.Room;
 import com.goit.hotelonlinebooking.entity.User;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Controller controller = new Controller();
         //User registration and creation of a list of users
         controller.userRegistration(new User(001, "Ivan", "Ivanov", 24, "ivanov@i.ua", "0679656343", "qwerty"));
         controller.userRegistration(new User(002, "Petr", "Petrov", 27, "petrov@i.ua", "0689871234", "123"));
         controller.userRegistration(new User(003, "Ivan", "Sidorov", 32, "sidorov@i.ua", "0978763434", "987"));
+
+        UserDAO userDAO = new UserDAO();
+
+        for(User u : userDAO.readUserFromFile()){
+            System.out.println(u);
+        }
+
 
         //authorize a user
         controller.login(01);

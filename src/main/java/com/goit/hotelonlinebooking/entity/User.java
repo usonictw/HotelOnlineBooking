@@ -1,8 +1,9 @@
 package com.goit.hotelonlinebooking.entity;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class User extends WithId {
+public class User extends WithId implements Serializable{
     private int id;
     private String name;
     private String lastName;
